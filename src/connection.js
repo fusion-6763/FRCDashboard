@@ -23,6 +23,11 @@ onkeydown = key => {
     loginShown = false;
   }
 };
+buttonConnect.onclick = () => {
+  connectDialog.open();
+  loginShown = true;
+  setLogin();
+};
 
 /**
  * Function to be called when robot connects
@@ -33,10 +38,6 @@ function onRobotConnection(connected) {
   console.log(state);
   ui.robotState.textContent = state;
 
-  buttonConnect.onclick = () => {
-    connectDialog.open();
-    loginShown = true;
-  };
   if (connected) {
     // On connect hide the connect popup
     connectDialog.close();
@@ -61,13 +62,13 @@ connect.onclick = () => {
   address.disabled = connect.disabled = true;
   connect.textContent = 'Connecting...';
 };
-address.onkeydown = ev => {
+/*address.onkeydown = ev => {
   if (ev.key === 'Enter') {
     connect.click();
     ev.preventDefault();
     ev.stopPropagation();
   }
-};
+};*/
 
 // Show login when starting
 connectDialog.open();

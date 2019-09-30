@@ -93,7 +93,7 @@
                     <!-- Tells whether robot is connected to dashboard. -->
                     <div id="robot-state">Unknown state</div>
                     <button id="connect-button" class="mdc-button mdc-button--outlined" data-mdc-auto-init="MDCRipple"><i
-                            class="material-icons mdc-button__icon">add</i><span class="mdc-button__label">Connect</span></button>
+                            class="material-icons mdc-button__icon">compare_arrows</i><span class="mdc-button__label">Connect</span></button>
                 </div>
             </div>
         </div>
@@ -126,7 +126,7 @@
                     <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
                         <span class="mdc-button__label">Cancel</span>
                     </button>
-                    <button id="connect" type="button" class="mdc-button mdc-button--raised" data-mdc-dialog-action="connect">
+                    <button id="connect" type="button" class="mdc-button mdc-button--raised mdc-dialog__button">
                         <span class="mdc-button__label">Connect</span>
                     </button>
                 </footer>
@@ -145,8 +145,8 @@
         })
     </script>
     <script src="networktables/networktables.js"></script>
-    <script src="connection.js"></script>
     <script src="ui.js"></script>
+    <script src="connection.js"></script>
 </body>
 
 </html>
