@@ -4,6 +4,8 @@ let address = document.getElementById('connect-address'),
 
 let loginShown = true;
 
+var connectDialog = new mdc.dialog.MDCDialog(document.getElementById('connect-dialog'))
+
 // Set function to be called on NetworkTables connect. Not implemented.
 //NetworkTables.addWsConnectionListener(onNetworkTablesConnection, true);
 
@@ -16,7 +18,8 @@ NetworkTables.addRobotConnectionListener(onRobotConnection, false);
 // Function for hiding the connect box
 onkeydown = key => {
   if (key.key === 'Escape') {
-    document.body.classList.toggle('login', false);
+    //document.body.classList.toggle('login', false);
+    connectDialog.close();
     loginShown = false;
   }
 };
@@ -31,12 +34,12 @@ function onRobotConnection(connected) {
   ui.robotState.textContent = state;
 
   buttonConnect.onclick = () => {
-    document.body.classList.toggle('login', true);
+    connectDialog.open();
     loginShown = true;
   };
   if (connected) {
     // On connect hide the connect popup
-    document.body.classList.toggle('login', false);
+    connectDialog.close();
     loginShown = false;
   } else if (loginShown) {
     setLogin();
@@ -67,5 +70,5 @@ address.onkeydown = ev => {
 };
 
 // Show login when starting
-document.body.classList.toggle('login', true);
+connectDialog.open();
 setLogin();

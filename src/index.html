@@ -5,63 +5,145 @@
     <meta charset="utf-8">
     <title>FRC Dashboard</title>
     <link href="css/style.css" rel="stylesheet">
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="material.css" rel="stylesheet" />
+    <script src="material.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
-    <div id="timer">2:15</div>
-    <header>
-        <!-- Tells whether robot is connected to dashboard. -->
-        <div id="robot-state">Unknown state</div>
-        <button id="connect-button">Connect</button>
+    <header class="mdc-top-app-bar mdc-top-app-bar--fixed" id="top-app-bar">
+        <div class="mdc-top-app-bar__row">
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+                <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
+                <span class="mdc-top-app-bar__title">FRC Dashboard</span>
+            </section>
+        </div>
     </header>
-    <!-- You'll need to mess around with the CSS of #camera (found in css/style.css) to get it to work.
-        More explanation in that CSS rule. -->
-    <div id="camera"></div>
-    <!-- The main body of the dashboard, by default contains the gyro monitor and the robot diagram -->
-    <article>
-        <!-- Gyroscope -->
-        <svg id="gyro">
-            <circle cx="85" cy="85" r="83"></circle>
-            <circle cx="85" cy="85" r="50"></circle>
-            <rect id="gyro-arm" x="80" y="5" width="10" height="80"></rect>
-            <text id="gyro-number" x="90" y="115">0º</text>
-        </svg>
-        <!-- Example robot diagram, arm moves when encoder value changes -->
-        <svg id="robot-diagram" width="332" height="450">
-            <text x="40" y="340">Example SVG Robot Diagram</text>
-            <rect x="75" y="360" width="230" height="40"></rect>
-            <rect x="85" y="370" width="210" height="40"></rect>
-            <rect id="robot-arm" x="5" y="375" width="80" height="10"></rect>
-            <circle cx="100" cy="410" r="25"></circle>
-            <circle cx="260" cy="410" r="25"></circle>
-            <rect x="60" y="380" width="250" height="30"></rect>
-            <text id="team" x="185" y="405" text-anchor="middle">####</text>
-        </svg>
-    </article>
-    <!-- The sidebar of the dashboard. Designed for smaller control elements like selection boxes and small buttons. -->
-    <aside>
-        <!-- Example button which toggles /SmartDashboard/exampleValue NetworkTables value.
-            The <p> below then says the value. -->
-        <div id="example-section">
-            <button id="example-button">Change example value</button>
-            <p id="example-readout">Value is undefined</p>
+    <aside class="mdc-drawer mdc-drawer--modal" id="drawer">
+        <div class="mdc-drawer__header">
+            <h3 class="mdc-drawer__title">Mail</h3>
+            <h6 class="mdc-drawer__subtitle">email@material.io</h6>
         </div>
-        <!-- Autonomous selector -->
-        <div class="select-container">
-            <select id="auto-select">
-                <option>No auto modes found</option>
-                <!-- This gets populated by JS -->
-            </select>
-        </div>
-        <div>
-            <p>Adjust arm height</p>
-            <input id="arm-position" type="range" min="0" max="1200" value="770">
+        <div class="mdc-drawer__content">
+            <nav class="mdc-list">
+                <a class="mdc-list-item mdc-list-item--activated" href="#" aria-current="page">
+                    <i class="material-icons mdc-list-item__graphic" aria-hidden="true">inbox</i>
+                    <span class="mdc-list-item__text">Inbox</span>
+                </a>
+                <hr class="mdc-list-divider">
+                <a class="mdc-list-item" href="#">
+                    <i class="material-icons mdc-list-item__graphic" aria-hidden="true">send</i>
+                    <span class="mdc-list-item__text">Outgoing</span>
+                </a>
+                <a class="mdc-list-item" href="#">
+                    <i class="material-icons mdc-list-item__graphic" aria-hidden="true">drafts</i>
+                    <span class="mdc-list-item__text">Drafts</span>
+                </a>
+            </nav>
         </div>
     </aside>
-    <div id="login">
-        <input id="connect-address" type="text" value="localhost" disabled>
-        <button id="connect" disabled>Connecting</button>
+    <div class="mdc-drawer-scrim"></div>
+
+    <div id="content" class="mdc-top-app-bar--fixed-adjust">
+        <div class="row" style="width:100%;height:100%;">
+            <div class="col" style="display:flex;justify-content: center;align-items: center">
+                <div style="text-align: center">
+                    <div id="clock" style="font-size: 80px;">??:??</div>
+                    <div id="alliance">
+                        <div style="color:white">
+                            <span style="color:white;font-size:3vw;font-weight:bold">
+                                <span id="alliance-text">Unknown</span>
+                                <span id="station">1</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col" style="display: flex;align-items:center">
+                <div>
+                    <div id="camera">
+                        <img id="hatch" class="" src="img/hatch-in.svg" />
+                    </div>
+                    <div class="mdc-select" data-mdc-auto-init="MDCSelect">
+                        <input type="hidden" name="enhanced-select">
+                        <i class="mdc-select__dropdown-icon"></i>
+                        <div class="mdc-select__selected-text"></div>
+                        <div class="mdc-select__menu mdc-menu mdc-menu-surface demo-width-class">
+                            <ul class="mdc-list">
+                                <li class="mdc-list-item mdc-list-item--selected" data-value="auto1">
+                                    Auto 1
+                                </li>
+                                <li class="mdc-list-item" data-value="auto2">
+                                    Auto 2
+                                </li>
+                                <li class="mdc-list-item" data-value="auto3">
+                                    Auto 3
+                                </li>
+                            </ul>
+                        </div>
+                        <span class="mdc-floating-label">Auto Selector</span>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                    <button class="mdc-button mdc-button--raised" data-mdc-auto-init="MDCRipple">Testing</button>
+                </div>
+            </div>
+            <div class="col" style="display:flex;align-items:center;justify-content:center">
+                <div>
+                    <!-- Tells whether robot is connected to dashboard. -->
+                    <div id="robot-state">Unknown state</div>
+                    <button id="connect-button" class="mdc-button mdc-button--outlined" data-mdc-auto-init="MDCRipple"><i
+                            class="material-icons mdc-button__icon">add</i><span class="mdc-button__label">Connect</span></button>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!--<div id="login">
+        <div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+            <input type="text" id="connect-address" value="localhost" class="mdc-text-field__input">
+            <label class="mdc-floating-label" for="my-text-field">Robot Address</label>
+            <div class="mdc-line-ripple"></div>
+        </div>
+        <input id="connect-address" type="text" value="localhost" disabled>
+        <button id="connect" class="mdc-button" data-mdc-auto-init="MDCRipple" disabled>Connecting</button>
+    </div>-->
+
+    <div class="mdc-dialog" id="connect-dialog">
+        <div class="mdc-dialog__container">
+            <div class="mdc-dialog__surface">
+                <h2 class="mdc-dialog__title" id="my-dialog-title">
+                    Connect To Robot
+                </h2>
+                <div class="mdc-dialog__content" id="my-dialog-content">
+                    <div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+                        <input type="text" id="connect-address" value="localhost" class="mdc-text-field__input">
+                        <label class="mdc-floating-label" for="my-text-field">Robot Address</label>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                </div>
+                <footer class="mdc-dialog__actions">
+                    <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="cancel">
+                        <span class="mdc-button__label">Cancel</span>
+                    </button>
+                    <button id="connect" type="button" class="mdc-button mdc-button--raised" data-mdc-dialog-action="connect">
+                        <span class="mdc-button__label">Connect</span>
+                    </button>
+                </footer>
+            </div>
+        </div>
+        <div class="mdc-dialog__scrim"></div>
+    </div>
+
+    <script>
+        mdc.autoInit();
+
+        var topAppBar = new mdc.topAppBar.MDCTopAppBar(document.getElementById("top-app-bar"));
+        var drawer = new mdc.drawer.MDCDrawer(document.getElementById('drawer'));
+        topAppBar.listen("MDCTopAppBar:nav", function () {
+            drawer.open = true;
+        })
+    </script>
     <script src="networktables/networktables.js"></script>
     <script src="connection.js"></script>
     <script src="ui.js"></script>
