@@ -9,7 +9,8 @@ let ui = {
         text: document.getElementById("alliance-text"),
         station: document.getElementById("station")
     },
-    hatch: document.getElementById("hatch")
+    hatch: document.getElementById("hatch"),
+    match: document.getElementById("match")
 };
 
 // Key Listeners
@@ -23,6 +24,11 @@ NetworkTables.addKeyListener('/FMSInfo/IsRedAlliance', (key, value) => {
 
 NetworkTables.addKeyListener('/FMSInfo/StationNumber', (key, value) => {
     ui.alliance.station.innerText = value;
+    console.log(value);
+});
+
+NetworkTables.addKeyListener('/FMSInfo/MatchNumber', (key, value) => {
+    ui.match.innerText = value;
     console.log(value);
 });
 

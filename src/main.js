@@ -104,7 +104,8 @@ function createWindow() {
         icon: __dirname + '/../images/icon.png',
         webPreferences: {
             nodeIntegration: true
-        }
+        },
+        frame: false
     });
     // Move window to top (left) of screen.
     mainWindow.setPosition(0, 0);

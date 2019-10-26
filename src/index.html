@@ -8,15 +8,18 @@
     <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="material.css" rel="stylesheet" />
     <script src="material.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
 </head>
 
 <body>
     <header class="mdc-top-app-bar mdc-top-app-bar--fixed" id="top-app-bar">
         <div class="mdc-top-app-bar__row">
             <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-                <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
+                <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button" style="-webkit-app-region: no-drag">menu</button>
                 <span class="mdc-top-app-bar__title">FRC Dashboard</span>
+            </section>
+            <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+                <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" style="-webkit-app-region: no-drag" id="close">close</button>
             </section>
         </div>
     </header>
@@ -49,6 +52,7 @@
         <div class="row" style="width:100%;height:100%;">
             <div class="col" style="display:flex;justify-content: center;align-items: center">
                 <div style="text-align: center">
+                    <span id="match-container">Match #<span id="match"></span></span>
                     <div id="clock" style="font-size: 80px;">??:??</div>
                     <div id="alliance">
                         <span id="station"><i class="material-icons">help</i></span>
@@ -66,22 +70,24 @@
                 <div>
                     <!-- Tells whether robot is connected to dashboard. -->
                     <div id="robot-state">Unknown state</div>
-                    <button id="connect-button" class="mdc-button mdc-button--outlined" data-mdc-auto-init="MDCRipple"><i
-                            class="material-icons mdc-button__icon">compare_arrows</i><span class="mdc-button__label">Connect</span></button>
+                    <button id="connect-button" class="mdc-button mdc-button--outlined"
+                        data-mdc-auto-init="MDCRipple"><i
+                            class="material-icons mdc-button__icon">compare_arrows</i><span
+                            class="mdc-button__label">Connect</span></button>
                 </div>
             </div>
         </div>
     </div>
 
     <!--<div id="login">
-        <div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
-            <input type="text" id="connect-address" value="localhost" class="mdc-text-field__input">
-            <label class="mdc-floating-label" for="my-text-field">Robot Address</label>
-            <div class="mdc-line-ripple"></div>
-        </div>
-        <input id="connect-address" type="text" value="localhost" disabled>
-        <button id="connect" class="mdc-button" data-mdc-auto-init="MDCRipple" disabled>Connecting</button>
-    </div>-->
+                    <div class="mdc-text-field" data-mdc-auto-init="MDCTextField">
+                        <input type="text" id="connect-address" value="localhost" class="mdc-text-field__input">
+                        <label class="mdc-floating-label" for="my-text-field">Robot Address</label>
+                        <div class="mdc-line-ripple"></div>
+                    </div>
+                    <input id="connect-address" type="text" value="localhost" disabled>
+                    <button id="connect" class="mdc-button" data-mdc-auto-init="MDCRipple" disabled>Connecting</button>
+                </div>-->
 
     <div class="mdc-dialog" id="connect-dialog">
         <div class="mdc-dialog__container">
@@ -116,6 +122,10 @@
         var drawer = new mdc.drawer.MDCDrawer(document.getElementById('drawer'));
         topAppBar.listen("MDCTopAppBar:nav", function () {
             drawer.open = true;
+        })
+
+        document.getElementById("close").addEventListener("click", function(e){
+            require('electron').remote.getCurrentWindow().close();
         })
     </script>
     <script src="networktables/networktables.js"></script>

@@ -61,3 +61,7 @@ dist/
 package-lock.json
 .DS_Store
 .vscode/
+
+FRCDashboard-darwin-x64/
+FRCDashboard-linux-x64/
+FRCDashboard-win32-x64/
