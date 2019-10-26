@@ -47,23 +47,27 @@ body, html{
     margin: 0;
 }
 body{
-    background-color: white;
+    background-color: #121212 !important;
 }
 
 #alliance{
-    height: 5vw !important;
-    width: 15vw;
+    height: 7vw !important;
+    width: 7vw;
 
-    border-radius: 20px;
+    border-radius: 20vw;
     margin: 0 auto;
-    background-color:purple;
+    background-color:transparent;
     color:white;
     display:flex;
     align-items: center;
     justify-content: center;
+
+    border: 7px solid rgba(255, 255, 255, 0.2);
+
 }
 #alliance *{
     color: white;
+    font-size: 3vw !important;
 }
 
 #logo{
@@ -76,7 +80,7 @@ body{
 #clock{
     font-size: 3vw !important;
     font-weight: bold;
-    color: rgb(0, 175, 255);
+    color: rgba(255, 255, 255, 0.7);
 }
 
 #camera {
@@ -84,7 +88,7 @@ body{
     width: 60vw;
     height: 30vw;
     overflow: hidden;
-    background-color: #333;
+    background-color: #1e1e1e;
     /* You'll need to mess with this a bit to get your camera to work. Replace the url with a live-updating image feed from your camera. Using other camera streaming systems will require some tweaking. */
     /*background-image: url('http://10.67.63.2:1181/?action=stream'), url('http://localhost:1181/?action=stream');*/
     background-image: url('../cam-example.jpg');
@@ -101,6 +105,8 @@ body{
     position: absolute;
     right: 1vw;
     bottom: 1vw;
+
+    background-color: rgba(0, 0, 0, 0.4);
 }
 #hatch.out{
     background-color: rgba(255, 0, 0, 0.7);
@@ -108,4 +114,12 @@ body{
 
 #content{
     height: 100%;
+}
+
+#top-app-bar{
+    background-color: #1f1f1f !important;
+}
+
+#robot-state{
+    color: white;
 }

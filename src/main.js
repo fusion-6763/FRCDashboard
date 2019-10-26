@@ -118,6 +118,7 @@ function createWindow() {
 
     // Remove menu
     //mainWindow.setMenu(null);
+    mainWindow.setAutoHideMenuBar(true);
     // Emitted when the window is closed.
     mainWindow.on('closed', () => {
         console.log('main window closed');
