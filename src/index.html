@@ -19,6 +19,7 @@
                 <span class="mdc-top-app-bar__title">FRC Dashboard</span>
             </section>
             <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+                <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" style="-webkit-app-region: no-drag" id="refresh">refresh</button>
                 <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" style="-webkit-app-region: no-drag" id="close">close</button>
             </section>
         </div>
@@ -126,6 +127,9 @@
 
         document.getElementById("close").addEventListener("click", function(e){
             require('electron').remote.getCurrentWindow().close();
+        })
+        document.getElementById("refresh").addEventListener("click", function(e){
+            require('electron').remote.getCurrentWindow().reload();
         })
     </script>
     <script src="networktables/networktables.js"></script>

@@ -58,7 +58,7 @@ typings/
 .env
 
 dist/
-package-lock.json
+# package-lock.json
 .DS_Store
 .vscode/
 

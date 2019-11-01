@@ -52,9 +52,10 @@ function setLogin() {
   address.disabled = connect.disabled = false;
   connect.textContent = 'Connect';
   // Add the default address and select xxxx
-  address.value = 'roborio-xxxx-frc.local';
+  address.value = '10.67.63.2';
   address.focus();
-  address.setSelectionRange(8, 12);
+  //address.setSelectionRange(8, 12);
+  address.select();
 }
 // On click try to connect and disable the input and the button
 connect.onclick = () => {
@@ -62,13 +63,12 @@ connect.onclick = () => {
   address.disabled = connect.disabled = true;
   connect.textContent = 'Connecting...';
 };
-/*address.onkeydown = ev => {
+address.onkeydown = ev => {
   if (ev.key === 'Enter') {
     connect.click();
     ev.preventDefault();
-    ev.stopPropagation();
   }
-};*/
+};
 
 // Show login when starting
 connectDialog.open();
