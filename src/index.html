@@ -19,8 +19,9 @@
                 <span class="mdc-top-app-bar__title">FRC Dashboard</span>
             </section>
             <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
-                <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" style="-webkit-app-region: no-drag" id="refresh">refresh</button>
-                <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" style="-webkit-app-region: no-drag" id="close">close</button>
+                    <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" style="-webkit-app-region: no-drag" id="full-screen" title="Full Screen">fullscreen</button>
+                <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" style="-webkit-app-region: no-drag" id="refresh" title="Refresh">refresh</button>
+                <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" style="-webkit-app-region: no-drag" id="close" title="Exit">close</button>
             </section>
         </div>
     </header>
@@ -70,7 +71,7 @@
             <div class="col" style="display:flex;align-items:center;justify-content:center">
                 <div>
                     <!-- Tells whether robot is connected to dashboard. -->
-                    <div id="robot-state">Unknown state</div>
+                    <div id="robot-state">Robot disconnected.</div>
                     <button id="connect-button" class="mdc-button mdc-button--outlined"
                         data-mdc-auto-init="MDCRipple"><i
                             class="material-icons mdc-button__icon">compare_arrows</i><span
@@ -125,11 +126,26 @@
             drawer.open = true;
         })
 
+        var fullScreen = false;
+
         document.getElementById("close").addEventListener("click", function(e){
             require('electron').remote.getCurrentWindow().close();
         })
         document.getElementById("refresh").addEventListener("click", function(e){
             require('electron').remote.getCurrentWindow().reload();
+        })
+
+        // Full screen toggle
+        document.getElementById("full-screen").addEventListener("click", function(e){
+            if(!fullScreen){
+                document.getElementById("full-screen").innerHTML = "fullscreen_exit";
+                require('electron').remote.getCurrentWindow().setFullScreen(true);
+            }
+            else{
+                document.getElementById("full-screen").innerHTML = "fullscreen";
+                require('electron').remote.getCurrentWindow().setFullScreen(false);
+            }
+            fullScreen = !fullScreen;
         })
     </script>
     <script src="networktables/networktables.js"></script>
