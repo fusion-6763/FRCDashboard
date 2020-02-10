@@ -17,8 +17,7 @@ let ui = {
 
 
 NetworkTables.addKeyListener('/FMSInfo/IsRedAlliance', (key, value) => {
-    ui.alliance.block.style.border = value ? "7px solid #F00" : "7px solid #00F";
-    ui.alliance.text.innerText = value ? "Red" : "Blue";
+    ui.alliance.block.style.border = value ? "7px solid red" : "7px solid rgb(0, 150, 255)";
     console.log(value);
 });
 
@@ -32,6 +31,9 @@ NetworkTables.addKeyListener('/FMSInfo/MatchNumber', (key, value) => {
     console.log(value);
 });
 
+NetworkTables.addKeyListener('/CameraPublisher', (key, value) => {
+    console.log("hi " + value)
+})
 
 NetworkTables.addKeyListener('/robot/time', (key, value) => {
     // This is an example of how a dashboard could display the remaining time in a match.
@@ -64,5 +66,5 @@ setInterval(function(){
     var seconds = date.getSeconds();
     var seconds = seconds.toString().length > 1 ? (seconds.toString()) : ("0" + seconds.toString());
 
-    ui.clock.innerText = hours + ":" + minutes + ":" + seconds;
+    ui.clock.innerText = hours + ":" + minutes;
 }, 1000);

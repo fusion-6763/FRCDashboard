@@ -15,13 +15,17 @@
     <header class="mdc-top-app-bar mdc-top-app-bar--fixed" id="top-app-bar">
         <div class="mdc-top-app-bar__row">
             <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-                <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button" style="-webkit-app-region: no-drag">menu</button>
+                <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button"
+                    style="-webkit-app-region: no-drag">menu</button>
                 <span class="mdc-top-app-bar__title">FRC Dashboard</span>
             </section>
             <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
-                    <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" style="-webkit-app-region: no-drag" id="full-screen" title="Full Screen">fullscreen</button>
-                <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" style="-webkit-app-region: no-drag" id="refresh" title="Refresh">refresh</button>
-                <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" style="-webkit-app-region: no-drag" id="close" title="Exit">close</button>
+                <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button"
+                    style="-webkit-app-region: no-drag" id="full-screen" title="Full Screen">fullscreen</button>
+                <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button"
+                    style="-webkit-app-region: no-drag" id="refresh" title="Refresh">refresh</button>
+                <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button"
+                    style="-webkit-app-region: no-drag" id="close" title="Exit">close</button>
             </section>
         </div>
     </header>
@@ -63,19 +67,87 @@
             </div>
             <div class="col" style="display: flex;align-items:center">
                 <div>
+                    <div class="mdc-tab-bar" role="tablist">
+                        <div class="mdc-tab-scroller">
+                            <div class="mdc-tab-scroller__scroll-area">
+                                <div class="mdc-tab-scroller__scroll-content">
+                                    <button class="mdc-tab mdc-tab--active" role="tab" aria-selected="true"
+                                        tabindex="0">
+                                        <span class="mdc-tab__content">
+                                            <span class="mdc-tab__icon material-icons"
+                                                aria-hidden="true">camera_alt</span>
+                                            <span class="mdc-tab__text-label">Camera 1</span>
+                                        </span>
+                                        <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                                            <span
+                                                class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                                        </span>
+                                        <span class="mdc-tab__ripple"></span>
+                                    </button>
+                                    <button class="mdc-tab mdc-tab" role="tab"
+                                        tabindex="1">
+                                        <span class="mdc-tab__content">
+                                            <span class="mdc-tab__icon material-icons"
+                                                aria-hidden="true">camera_alt</span>
+                                            <span class="mdc-tab__text-label">Camera 2</span>
+                                        </span>
+                                        <span class="mdc-tab-indicator mdc-tab-indicator">
+                                            <span
+                                                class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                                        </span>
+                                        <span class="mdc-tab__ripple"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div id="camera">
                         <img id="hatch" class="" src="img/hatch-in.svg" />
+                    </div><br />
+                    <div class="mdc-select" style="overflow:visible">
+                        <div class="mdc-select__anchor demo-width-class">
+                            <i class="mdc-select__dropdown-icon"></i>
+                            <div class="mdc-select__selected-text"></div>
+                            <span class="mdc-floating-label">Auto selector</span>
+                            <div class="mdc-line-ripple"></div>
+                        </div>
+                        ​
+                        <div class="mdc-select__menu mdc-menu mdc-menu-surface">
+                            <ul class="mdc-list">
+                                <li class="mdc-list-item" data-value="stat1">
+                                    Station 1
+                                </li>
+                                <li class="mdc-list-item" data-value="stat2">
+                                    Station 2
+                                </li>
+                                <li class="mdc-list-item" data-value="stat3">
+                                    Station 3
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col" style="display:flex;align-items:center;justify-content:center">
-                <div>
+                <div id="right-pane">
                     <!-- Tells whether robot is connected to dashboard. -->
                     <div id="robot-state">Robot disconnected.</div>
                     <button id="connect-button" class="mdc-button mdc-button--outlined"
                         data-mdc-auto-init="MDCRipple"><i
                             class="material-icons mdc-button__icon">compare_arrows</i><span
-                            class="mdc-button__label">Connect</span></button>
+                            class="mdc-button__label">Connect</span></button><br />
+                    <div>
+                        <div class="mdc-switch">
+                            <div class="mdc-switch__track"></div>
+                            <div class="mdc-switch__thumb-underlay">
+                                <div class="mdc-switch__thumb">
+                                    <input type="checkbox" id="basic-switch" class="mdc-switch__native-control"
+                                        role="switch">
+                                </div>
+                            </div>
+                        </div>
+                        <label for="basic-switch">Makey Makey Control</label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -122,26 +194,30 @@
 
         var topAppBar = new mdc.topAppBar.MDCTopAppBar(document.getElementById("top-app-bar"));
         var drawer = new mdc.drawer.MDCDrawer(document.getElementById('drawer'));
+        var makeySwitch = new mdc.switchControl.MDCSwitch(document.querySelector('.mdc-switch'))
+        var autoSelector = new mdc.select.MDCSelect(document.querySelector('.mdc-select'))
+        var tabBar = new mdc.tabBar.MDCTabBar(document.querySelector('.mdc-tab-bar'))
+
         topAppBar.listen("MDCTopAppBar:nav", function () {
             drawer.open = true;
         })
 
         var fullScreen = false;
 
-        document.getElementById("close").addEventListener("click", function(e){
+        document.getElementById("close").addEventListener("click", function (e) {
             require('electron').remote.getCurrentWindow().close();
         })
-        document.getElementById("refresh").addEventListener("click", function(e){
+        document.getElementById("refresh").addEventListener("click", function (e) {
             require('electron').remote.getCurrentWindow().reload();
         })
 
         // Full screen toggle
-        document.getElementById("full-screen").addEventListener("click", function(e){
-            if(!fullScreen){
+        document.getElementById("full-screen").addEventListener("click", function (e) {
+            if (!fullScreen) {
                 document.getElementById("full-screen").innerHTML = "fullscreen_exit";
                 require('electron').remote.getCurrentWindow().setFullScreen(true);
             }
-            else{
+            else {
                 document.getElementById("full-screen").innerHTML = "fullscreen";
                 require('electron').remote.getCurrentWindow().setFullScreen(false);
             }
