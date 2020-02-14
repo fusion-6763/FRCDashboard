@@ -10,7 +10,8 @@ let ui = {
         station: document.getElementById("station")
     },
     hatch: document.getElementById("hatch"),
-    match: document.getElementById("match")
+    match: document.getElementById("match"),
+    tabBar: new mdc.tabBar.MDCTabBar(document.getElementById('camera-tab-bar'))
 };
 
 // Key Listeners
@@ -67,4 +68,38 @@ setInterval(function(){
     var seconds = seconds.toString().length > 1 ? (seconds.toString()) : ("0" + seconds.toString());
 
     ui.clock.innerText = hours + ":" + minutes;
+    console.log("moo")
 }, 1000);
+
+NetworkTables.addRobotConnectionListener(con => {
+    if(con){
+        
+    }
+})
+
+function getCameras(){
+    var s = NetworkTables.getKeys().filter(item => {
+        return item.includes("CameraPublisher")
+    })
+
+    var n = s.map(item => {
+        return /^\/CameraPublisher\/([^\/]+)/.exec(item)[1]
+    })
+
+    return arrayRemoveDuplicates(n).map(item => {
+        return {
+            name: item,
+            streams: NetworkTables.getValue(`/CameraPublisher/${item}/streams`).map(item => item.replace(/^mjpg:/, ""))
+        }
+    })
+}
+
+function arrayRemoveDuplicates(array){
+    var retVal = []
+
+    array.forEach(item => {
+        if(!retVal.includes(item)){retVal.push(item)}
+    })
+
+    return retVal
+}

@@ -45,7 +45,7 @@ body.login #login {
 *{
     font-family: "Roboto", sans-serif;
 }
-body, html, div#body{
+body, html, div#body, #app{
     height: 100%;
     margin: 0;
 }

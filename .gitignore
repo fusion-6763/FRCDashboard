@@ -65,3 +65,5 @@ dist/
 FRCDashboard-darwin-x64/
 FRCDashboard-linux-x64/
 FRCDashboard-win32-x64/
+
+src/networktables/out

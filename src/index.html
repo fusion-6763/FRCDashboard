@@ -67,7 +67,7 @@
             </div>
             <div class="col" style="display: flex;align-items:center">
                 <div>
-                    <div class="mdc-tab-bar" role="tablist">
+                    <div class="mdc-tab-bar" id="camera-tab-bar" role="tablist">
                         <div class="mdc-tab-scroller">
                             <div class="mdc-tab-scroller__scroll-area">
                                 <div class="mdc-tab-scroller__scroll-content">
@@ -193,11 +193,12 @@
     <script>
         mdc.autoInit();
 
+        var camera = document.getElementById("camera")
+
         var topAppBar = new mdc.topAppBar.MDCTopAppBar(document.getElementById("top-app-bar"));
         var drawer = new mdc.drawer.MDCDrawer(document.getElementById('drawer'));
         var makeySwitch = new mdc.switchControl.MDCSwitch(document.querySelector('.mdc-switch'))
         var autoSelector = new mdc.select.MDCSelect(document.querySelector('.mdc-select'))
-        var tabBar = new mdc.tabBar.MDCTabBar(document.querySelector('.mdc-tab-bar'))
 
         topAppBar.listen("MDCTopAppBar:nav", function () {
             drawer.open = true;
