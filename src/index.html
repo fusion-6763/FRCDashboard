@@ -197,8 +197,6 @@
 
         var topAppBar = new mdc.topAppBar.MDCTopAppBar(document.getElementById("top-app-bar"));
         var drawer = new mdc.drawer.MDCDrawer(document.getElementById('drawer'));
-        var makeySwitch = new mdc.switchControl.MDCSwitch(document.querySelector('.mdc-switch'))
-        var autoSelector = new mdc.select.MDCSelect(document.querySelector('.mdc-select'))
 
         topAppBar.listen("MDCTopAppBar:nav", function () {
             drawer.open = true;

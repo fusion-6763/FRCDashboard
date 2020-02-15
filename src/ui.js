@@ -11,11 +11,16 @@ let ui = {
     },
     hatch: document.getElementById("hatch"),
     match: document.getElementById("match"),
-    tabBar: new mdc.tabBar.MDCTabBar(document.getElementById('camera-tab-bar'))
+    tabBar: new mdc.tabBar.MDCTabBar(document.getElementById('camera-tab-bar')),
+    autoSelector: new mdc.select.MDCSelect(document.querySelector('.mdc-select')),
+    makeySwitch: new mdc.switchControl.MDCSwitch(document.querySelector('.mdc-switch'))
 };
 
-// Key Listeners
+ui.autoSelector.listen("MDCSelect:change", function (e) {
+    NetworkTables.putValue('/frcdashboard/auto', e.detail.index)
+})
 
+// Key Listeners
 
 NetworkTables.addKeyListener('/FMSInfo/IsRedAlliance', (key, value) => {
     ui.alliance.block.style.border = value ? "7px solid red" : "7px solid rgb(0, 150, 255)";
@@ -44,10 +49,10 @@ NetworkTables.addKeyListener('/robot/time', (key, value) => {
 
 NetworkTables.addKeyListener('/SmartDashboard/hatchOut', (key, value) => {
     ui.hatch.src = (value ? 'img/hatch-out.svg' : 'img/hatch-in.svg');
-    if(value){
+    if (value) {
         ui.hatch.classList.add("out");
     }
-    else{
+    else {
         ui.hatch.classList.remove("out");
     }
 })
@@ -56,7 +61,7 @@ addEventListener('error', (ev) => {
     ipc.send('windowError', { mesg: ev.message, file: ev.filename, lineNumber: ev.lineno })
 })
 
-setInterval(function(){
+setInterval(function () {
     var date = new Date();
     var hours = date.getHours() <= 12 ? date.getHours() : (date.getHours() - 12);
     var hours = hours.toString().length > 1 ? (hours.toString()) : ("0" + hours.toString());
@@ -72,12 +77,12 @@ setInterval(function(){
 }, 1000);
 
 NetworkTables.addRobotConnectionListener(con => {
-    if(con){
-        
+    if (con) {
+
     }
 })
 
-function getCameras(){
+function getCameras() {
     var s = NetworkTables.getKeys().filter(item => {
         return item.includes("CameraPublisher")
     })
@@ -94,12 +99,64 @@ function getCameras(){
     })
 }
 
-function arrayRemoveDuplicates(array){
+function arrayRemoveDuplicates(array) {
     var retVal = []
 
     array.forEach(item => {
-        if(!retVal.includes(item)){retVal.push(item)}
+        if (!retVal.includes(item)) { retVal.push(item) }
     })
 
     return retVal
+}
+
+var leftPressed = false
+var upPressed = false
+var rightPressed = false
+var downPressed = false
+
+document.body.addEventListener("keydown", (e) => {
+    switch (e.keyCode) {
+        case 37:
+            leftPressed = true
+            break
+        case 38:
+            upPressed = true
+            break
+        case 39:
+            rightPressed = true
+            break
+        case 40:
+            downPressed = true
+            break
+    }
+
+    updateMakey()
+})
+
+document.body.addEventListener("keyup", (e) => {
+    switch (e.keyCode) {
+        case 37:
+            leftPressed = false
+            break
+        case 38:
+            upPressed = false
+            break
+        case 39:
+            rightPressed = false
+            break
+        case 40:
+            downPressed = false
+            break
+    }
+
+    updateMakey()
+})
+
+function updateMakey() {
+    if (ui.makeySwitch.checked) {
+        NetworkTables.putValue('/frcdashboard/makey/leftPressed', leftPressed)
+        NetworkTables.putValue('/frcdashboard/makey/upPressed', upPressed)
+        NetworkTables.putValue('/frcdashboard/makey/rightPressed', rightPressed)
+        NetworkTables.putValue('/frcdashboard/makey/downPressed', downPressed)
+    }
 }

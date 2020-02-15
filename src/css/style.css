@@ -93,7 +93,7 @@ body{
     overflow: hidden;
     background-color: #242424;
     /* You'll need to mess with this a bit to get your camera to work. Replace the url with a live-updating image feed from your camera. Using other camera streaming systems will require some tweaking. */
-    background-image: url('http://10.67.63.2:1181/?action=stream'), url('http://localhost:1181/?action=stream');
+    background-image: url('http://10.67.63.33:1181/?action=stream'), url('http://localhost:1181/?action=stream');
     /*background-image: url('../cam-example.jpg');*/
     background-size: contain;
     background-position: center center;
