@@ -67,10 +67,15 @@ var NetworkTables =
         }
         return {
             /**
+             * @callback robotConnectionCallback
+             * @param {boolean} connected 
+             */
+
+            /**
              * Sets a function to be called when the robot connects/disconnects to the pynetworktables2js server via NetworkTables. It will also be called when the websocket connects/disconnects.
              *
              * When a listener function is called with a ‘true’ parameter, the NetworkTables.getRobotAddress() function will return a non-null value.
-             * @param {(connected: boolean) => any} f a function that will be called with a single boolean parameter that indicates whether the robot is connected
+             * @param {robotConnectionCallback} f a function that will be called with a single boolean parameter that indicates whether the robot is connected
              * @param {boolean} [immediateNotify] If true, the function will be immediately called with the current robot connection state
              */
             addRobotConnectionListener(f, immediateNotify) {
